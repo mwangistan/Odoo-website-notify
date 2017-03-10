@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="website_crm_notify_mail" model="mail.template">
+            <field name="name">Contact Form Notify Investors</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">${object.company_id and object.company_id.email}</field>
+            <field name="email_to">${(object.email_from)}</field>
+            <field name="subject">Thanks for your inquiry: ${object.name}</field>
+            <field name="body_html"> <![CDATA[
+<p>Hello ${object.contact_name}. Thank you for your interest in investing in Mombasa. Your message has been sent successfully.</p>
+<p>We will get back to you within 2 business days.</p>
+
+<p>Thank you,</p>
+<pre>
+---
+${object.company_id.name or ''}
+${object.company_id.phone or ''}
+${object.company_id.email or ''}
+${object.company_id.website or ''}
+</pre>
+            ]]></field>
+        </record>
+
+        <record id="website_crm_notify_mail_2" model="mail.template">
+            <field name="name">Notify respective departments and Mombasa invest</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="email_from">${object.company_id and object.company_id.email}</field>
+            <field name="email_to">${object.team_id.user_id.login}, ${object.company_id.email}</field>
+            <field name="subject">A new investor inquiry has been received</field>
+            <field name="body_html"> <![CDATA[
+<p>A new inquiry titled ${object.name} has been received. Kindly login to the portal to view it.</p>
+
+<p>Thank you,</p>
+<pre>
+---
+${object.company_id.name or ''}
+${object.company_id.phone or ''}
+${object.company_id.email or ''}
+${object.company_id.website or ''}
+</pre>
+            ]]></field>
+        </record>
+
+    </data>
+</openerp>
